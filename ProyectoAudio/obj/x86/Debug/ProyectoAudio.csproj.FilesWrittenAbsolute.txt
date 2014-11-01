@@ -1,0 +1,7 @@
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/obj/x86/Debug/.NETFramework,Version=v4.0.AssemblyAttribute.cs
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/bin/Debug/ProyectoAudio.exe.mdb
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/bin/Debug/ProyectoAudio.exe
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/obj/x86/Debug/ProyectoAudio.exe
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/obj/x86/Debug/ProyectoAudio.exe.mdb
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/bin/Debug/UltraID3Lib.dll
+/Users/Gabriel/Projects/ProyectoAudio/ProyectoAudio/bin/Debug/taglib-sharp.dll
