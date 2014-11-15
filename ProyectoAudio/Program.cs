@@ -9,63 +9,67 @@ namespace ProyectoAudio
 		public static void Main (string[] args)
 		{
 			var documentsPath = Environment.GetFolderPath (Environment.SpecialFolder.Desktop); // get the folderPath
-			var filenameOrigin = "BPM"; // get the name of the folder
-			var originPath = Path.Combine (documentsPath, filenameOrigin); // relative path
-			string title = "",artist="",album=""; //properties init
-			uint year = DateTime.Now.Year;
-			var comments = "";
-			string filename = "";
+			var folder = "BPM"; // get the name of the folder
+			var originPath = Path.Combine (documentsPath, folder); // relative path
+			string title = "",artist = "",comments = "",filename = ""; //properties init
+			int pos = -1; 
 
+			string[] files = Directory.GetFiles(originPath, "*.mp3", SearchOption.AllDirectories); // we save all the names in array
 
-			string[] files = Directory.GetFiles(originPath, "*.mp3", SearchOption.AllDirectories);
-
-			if (files.Length) {
-				Console.WriteLine ("EL DIRECTORIO NO EXISTE");
+			if (files.Length == 0) {
+				Console.WriteLine ("EL DIRECTORIO {0} NO EXISTE",folder);
 			}
 
 
-			foreach (var fileName in files){
+			foreach (var fileName in files){ //for every instance we clean all the tags and we clean the filename to save in the next using
 				using (TagLib.File file = TagLib.File.Create (fileName)) {
 
+					Console.WriteLine (fileName);
+
+					filename = file.Name;
+
+					filename = filename.Substring (fileName.LastIndexOf("/")+1);
 
 
-					filename = file.Name.Substring (27);
+					//filename = filename.Substring(0,filename.IndexOf ("www.livingelectro.com"));
 
-					filename = file.Name.Substring (23, filename.Length - 4);
 
-					filename.Replace ("www.livingelectro.com", "");
+					Console.WriteLine (filename);
 
-					file.RemoveTags (TagTypes.AllTags);
+					pos = filename.IndexOf ("-");
 
-					file.Save ();
+					Console.WriteLine ("La posicion es: " + pos);
 
-					int pos = filename.IndexOf ("-");
+
 					artist = filename.Substring (0, pos - 1);
 					title = filename.Substring (pos + 2);
+
+					file.RemoveTags (TagTypes.AllTags);
+					file.Save ();
+
 				}
 
-			}
+				using (TagLib.File file2 = TagLib.File.Create (fileName)) {
 
-
-			foreach (var fileName in files) {
-				using (TagLib.File file2 = TagLib.File.Create (originPath)) {
+					title = title.Substring (0,title.LastIndexOf("."));
 
 					file2.Tag.Title = title;
 					file2.Tag.Album = title;
-					file2.Tag.Year = year;
+					file2.Tag.Year = (uint)DateTime.Now.Year;
 					file2.Tag.Comment = comments;
 					file2.Tag.Performers = null;
 					file2.Tag.Performers = new []{ artist };
 
 					file2.Save ();
 
-					System.Console.WriteLine ("Title:  " + file.Tag.Title);
-					System.Console.WriteLine ("Album:  " + file.Tag.Album);
-					System.Console.WriteLine ("Year: " + file.Tag.Year);
-					System.Console.WriteLine ("Artist: " + file.Tag.FirstPerformer);
+
 
 				}
+
 			}
+
+
+
 
 				
 	}
